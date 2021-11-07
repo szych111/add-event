@@ -18,6 +18,15 @@ input::placeholder {
     font-size: 1em;
 }
 
+.input-control--invalid input {
+  border: 1px solid red;
+  background: #ffd1d1;
+}
+
+.input-control--invalid p {
+    color: red;
+  }
+
 button {
     background-color: rgb(29, 53, 53);
     text-transform: uppercase;

@@ -9,6 +9,7 @@ import {
   } from './validators'
 import './Form.css'
 
+
 const formReducer = (state, action) => {
     switch (action.type) {
       case 'INPUT_CHANGE':
@@ -63,13 +64,35 @@ const Form = () => {
           value: value,
           isValid: isValid,
           inputId: id
-        });
-      }, []);
+        })
+      }, [])
     
-      const submitHandler = e => {
-        e.preventDefault();
-        console.log('klik')
-        console.log(formState.inputs); // send this to the backend!
+      const submitHandler = async e => {
+        e.preventDefault()
+
+        const url = 'http://localhost:5000/api/events'
+
+        try {
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              firstName: formState.inputs.firstName.value,
+              lastName: formState.inputs.lastName.value,
+              email: formState.inputs.email.value,
+              eventDate: formState.inputs.eventDate.value
+            })
+          }
+    
+          const response = await fetch(url, requestOptions)
+          .then(response => alert('You have submitted the form.'))
+          .catch(error => alert('Form submit error', error))
+
+          const responseData = await response.json()
+          console.log(responseData)
+        } catch (err) {
+          console.log(err)
+        }
       };
     
 

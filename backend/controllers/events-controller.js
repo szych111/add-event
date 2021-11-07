@@ -33,7 +33,7 @@ const createEvent = async (req, res, next) => {
         return next(error)
     }
    
-    res.status(201).json({event: createdEvent})
+    res.status(201).json({event: createdEvent.toObject({getters: true})})
 }
 
 const getEvents = async (req, res, next) => {
