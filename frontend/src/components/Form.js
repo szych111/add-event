@@ -6,8 +6,9 @@ import {
     VALIDATOR_MINLENGTH,
     VALIDATOR_EMAIL,
     VALIDATOR_MAXLENGTH
-  } from './validators'
+  } from '../utils/validators'
 import './Form.css'
+import { postData } from "../utils/fetchData"
 
 
 const formReducer = (state, action) => {
@@ -36,7 +37,7 @@ const formReducer = (state, action) => {
 
 const Form = () => {
 
-    const [formState, dispatch] = useReducer(formReducer, {
+  const [formState, dispatch] = useReducer(formReducer, {
         inputs: {
           firstName: {
             value: '',
@@ -66,34 +67,28 @@ const Form = () => {
           inputId: id
         })
       }, [])
+
+      const inputsToBeSaved = {
+        firstName: formState.inputs.firstName.value,
+        lastName: formState.inputs.lastName.value,
+        email: formState.inputs.email.value,
+        eventDate: formState.inputs.eventDate.value
+      }
     
-      const submitHandler = async e => {
+      const submitHandler = async (e) => {
         e.preventDefault()
 
-        const url = 'http://localhost:5000/api/events'
-
         try {
-          const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              firstName: formState.inputs.firstName.value,
-              lastName: formState.inputs.lastName.value,
-              email: formState.inputs.email.value,
-              eventDate: formState.inputs.eventDate.value
-            })
-          }
-    
-          const response = await fetch(url, requestOptions)
-          .then(response => alert('You have submitted the form.'))
+          await postData(inputsToBeSaved)
+          .then(response => {
+            const responseData = response.json()
+            console.log(responseData)
+          })
           .catch(error => alert('Form submit error', error))
-
-          const responseData = await response.json()
-          console.log(responseData)
-        } catch (err) {
+        } catch(err) {
           console.log(err)
         }
-      };
+        } 
     
 
     return (
@@ -127,8 +122,7 @@ const Form = () => {
                 />
             <Input
                 type='date'
-                placeholder='first name'
-                id="firstName"
+                id="eventDate"
                 element="input"
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="Please enter event's date."

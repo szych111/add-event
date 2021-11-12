@@ -2,14 +2,6 @@ const HttpError = require('../models/http-error')
 const { validationResult } = require('express-validator')
 const Event = require('../models/event')
 
-const DUMMY_EVENTS = [
-    {
-        firstName: 'Gordon',
-        lastName: 'Brown',
-        email: 'test@test.com',
-        eventDate: 'Dec 25, 2021'
-    }
-]
 
 const createEvent = async (req, res, next) => {
     const errors = validationResult(req)
