@@ -8,7 +8,7 @@ import {
     VALIDATOR_MAXLENGTH
   } from '../utils/validators'
 import './Form.css'
-import { postData } from "../utils/fetchData"
+import { postData } from "../utils/postData"
 
 
 const formReducer = (state, action) => {
@@ -77,17 +77,7 @@ const Form = () => {
     
       const submitHandler = async (e) => {
         e.preventDefault()
-
-        try {
-          await postData(inputsToBeSaved)
-          .then(response => {
-            const responseData = response.json()
-            console.log(responseData)
-          })
-          .catch(error => alert('Form submit error', error))
-        } catch(err) {
-          console.log(err)
-        }
+        postData(inputsToBeSaved)
         } 
     
 

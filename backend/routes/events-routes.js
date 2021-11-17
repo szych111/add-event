@@ -9,6 +9,6 @@ router.post('/', [
     check('firstName').isLength({min: 2}),
     check('lastName').isLength({min: 2}),
     check('email').normalizeEmail().isEmail(),
-], eventsController.createEvent)
+], eventsController.postEvent)
 
 module.exports = router

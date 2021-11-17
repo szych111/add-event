@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator')
 const Event = require('../models/event')
 
 
-const createEvent = async (req, res, next) => {
+const postEvent = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return next(new HttpError('Invalid inputs passed, please check your data', 422))
@@ -11,7 +11,7 @@ const createEvent = async (req, res, next) => {
 
     const { firstName, lastName, email, eventDate} = req.body
 
-    const createdEvent = new Event({
+    const newEvent = new Event({
         firstName,
         lastName,
         email,
@@ -19,13 +19,13 @@ const createEvent = async (req, res, next) => {
     })
 
     try {
-        await createdEvent.save()
+        await newEvent.save()
     } catch (err) {
         const error = new HttpError('Creating event failed, please try again.', 500)
         return next(error)
     }
    
-    res.status(201).json({event: createdEvent.toObject({getters: true})})
+    res.status(201).json({event: newEvent.toObject({getters: true})})
 }
 
 const getEvents = async (req, res, next) => {
@@ -35,4 +35,4 @@ const getEvents = async (req, res, next) => {
 
 
 exports.getEvents = getEvents
-exports.createEvent = createEvent
+exports.postEvent = postEvent

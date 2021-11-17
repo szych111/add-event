@@ -25,16 +25,15 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occurred'})
 })
 
-mongoose.connect('mongodb+srv://alex:mongobongo!@cluster0.xroax.mongodb.net/events?retryWrites=true&w=majority')
+// mongoose.connect('mongodb+srv://alex:mongobongo!@cluster0.xroax.mongodb.net/events?retryWrites=true&w=majority')
 
-app.listen(5000)
+// app.listen(5000)
 
-/* mongoose
+mongoose
 .connect('mongodb+srv://alex:mongobongo!@cluster0.xroax.mongodb.net/events?retryWrites=true&w=majority')
 .then(() => {
-    app.listen(5000)
+    app.listen(5000, () => console.log('Listening on 5000'))
 })
 .catch(err => {
     console.log(err)
-}) */
-
+})

@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --coverage",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -33,6 +33,15 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.7",
+    "fetch-mock-jest": "^1.5.1"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
     ]
   }
 }
