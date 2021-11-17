@@ -1,7 +1,7 @@
 jest.mock('node-fetch');
 
 import fetch, {Response} from 'node-fetch'
-import {getEvents} from '../components/TestComponent'
+import {getEvents} from './getData'
 
 test('getEvents calls fetch and returns an array of events', async () => {
   fetch.mockReturnValue(Promise.resolve(new Response([])));
